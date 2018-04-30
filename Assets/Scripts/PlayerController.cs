@@ -10,11 +10,25 @@ public class PlayerController : MonoBehaviour
     public float extraGravity = 100;
     public GameObject mesh;
 
+    Animator animator;
+    bool isEquipSheathed = true;
+
     new Rigidbody rigidbody;
 
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        animator = mesh.GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("Sheath"))
+        {
+            isEquipSheathed = !isEquipSheathed;
+            animator.SetBool("isEquipSheathed", isEquipSheathed);
+        }
+
     }
 
     void FixedUpdate()
