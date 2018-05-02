@@ -5,6 +5,7 @@ using UnityEngine;
 public class ChoppableTree : MonoBehaviour
 {
     public GameObject treeHitEffects;
+    int hp = 5;
 
     void Awake()
     {
@@ -13,10 +14,15 @@ public class ChoppableTree : MonoBehaviour
 
     private void OnHit(HitInfo hitInfo)
     {
-        var gameObject = Instantiate(treeHitEffects, hitInfo.hitPosition, Quaternion.identity);
+        var treeHitObject = Instantiate(treeHitEffects, hitInfo.hitPosition, Quaternion.identity);
         if (hitInfo.hitNormal.magnitude > 0)
         {
-            gameObject.transform.forward = hitInfo.hitNormal;
+            treeHitObject.transform.forward = hitInfo.hitNormal;
+        }
+
+        if (--hp == 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
